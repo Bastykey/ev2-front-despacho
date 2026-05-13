@@ -1,4 +1,3 @@
-# Etapa 1: construir el frontend
 FROM node:20-alpine AS build
 
 WORKDIR /app
@@ -12,7 +11,7 @@ COPY . .
 RUN npm run build
 
 
-# Etapa 2: servir con Nginx
+
 FROM nginx:alpine
 
 COPY --from=build /app/dist /usr/share/nginx/html
