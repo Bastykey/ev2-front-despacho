@@ -7,16 +7,16 @@ export const TableCompras = () => {
   const [ventas, setVentas] = useState([]);
 
   const compras = async () => {
-    await axios.get("http://148.116.111.3:8082/api/v1/ventas", {, {
+    await axios.get("http://148.116.111.3:8082/api/v1/ventas",{
       headers:{
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-  }
-    }).then((response) => {
-      console.log(response.data);
-      setVentas(response.data);
-    });
-  };
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+      }
+        }).then((response) => {
+          console.log(response.data);
+          setVentas(response.data);
+        });
+      };
   // Llamada a la función para obtener los datos cuando el componente se monta
   useEffect(() => {
     compras();
