@@ -6,51 +6,69 @@ export const FormDespacho = ({ venta, onClose }) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("onSubmit ejecutado");
     const jsonData = {
       fechaDespacho: data.fechaDespacho,
       patenteCamion: data.patenteCamion,
       intento: 0,
-      entregado: false,
+      despachado: false,
       idCompra: venta.idVenta,
       direccionCompra: venta.direccionCompra,
       valorCompra: venta.valorCompra,
     };
 
     const jsonDataSales = {
+      direccionCompra: venta.direccionCompra,
+      valorCompra: venta.valorCompra,
+      fechaCompra: venta.fechaCompra,
       despachoGenerado: true,
     };
 
-    console.log("Datos del formulario:", jsonData);
+    console.log("Datos del despacho:", jsonData);
+    console.log("Datos de venta actualizada:", jsonDataSales);
 
     try {
       await axios.put(
-        `http://192.168.30/api/v1/ventas/${venta.idVenta}`,
+        `http://148.116.111.3:8082/api/v1/ventas/${venta.idVenta}`,
         jsonDataSales,
         {
-          headers:{
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-      }
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
         }
       );
-      await axios.post("http://192.168.320/api/v1/despachos", jsonData, {
-        headers:{
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-    }
-      });
+
+      await axios.post(
+        "http://148.116.111.3:8081/api/v1/despachos",
+        jsonData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
       Swal.fire({
         title: "Despacho registrado 🛻!",
         text: "El despacho ha sido generado con éxito en la base de datos",
         icon: "success",
         confirmButtonText: "Aceptar",
       });
+
+      onClose();
     } catch (error) {
       console.error("Error en la solicitud:", error);
+
+      Swal.fire({
+        title: "Error",
+        text: "No se pudo generar el despacho",
+        icon: "error",
+        confirmButtonText: "Aceptar",
+      });
     }
-    onClose();
   };
+
   return (
     <>
       <form
@@ -60,6 +78,7 @@ export const FormDespacho = ({ venta, onClose }) => {
         <div className="mx-auto text-3xl font-bold mb-10 text-teal-600">
           Ingreso de orden de despacho
         </div>
+
         <div className="mb-5">
           <label className="block font-bold mb-2">Fecha de despacho</label>
           <input
@@ -69,6 +88,7 @@ export const FormDespacho = ({ venta, onClose }) => {
             {...register("fechaDespacho", { required: true })}
           />
         </div>
+
         <div className="mb-5">
           <label className="block font-bold mb-2">Patente de camión</label>
           <input
@@ -78,6 +98,7 @@ export const FormDespacho = ({ venta, onClose }) => {
             {...register("patenteCamion", { required: true })}
           />
         </div>
+
         <div className="mb-5">
           <label className="block font-bold mb-2">
             Orden de compra asociado
@@ -89,6 +110,7 @@ export const FormDespacho = ({ venta, onClose }) => {
             className="border border-gray-300 rounded-lg block w-full text-slate-400 p-1"
           />
         </div>
+
         <div className="mb-5">
           <label className="block font-bold mb-2">Dirección de entrega</label>
           <input
@@ -98,6 +120,7 @@ export const FormDespacho = ({ venta, onClose }) => {
             className="border border-gray-300 rounded-lg block w-full text-slate-400 p-1"
           />
         </div>
+
         <div className="mb-5">
           <label className="block font-bold mb-2">Valor de compra</label>
           <input

@@ -48,32 +48,30 @@ export const TableCompras = () => {
                 </tr>
               </thead>
               <tbody>
-                {ventas
-                  .filter((venta) => !venta.despachoGenerado)
-                  .map((venta) => (
-                    <tr key={venta.idVenta}>
-                      <td className="pr-10 py-10 items-center">
-                        {venta.idVenta}
-                      </td>
-                      <td className="pr-10 py-10  items-center">
-                        {venta.direccionCompra}
-                      </td>
-                      <td className="pr-10 py-10  items-center">
-                        {venta.fechaCompra}
-                      </td>
-                      <td className="pr-10 py-10  items-center">
-                        ${venta.valorCompra}
-                      </td>
-                      <td>
-                        <button
-                          onClick={() => handleAbrirModal(venta)}
-                          className="py-1 bg-orange-200 px-8 rounded-xl shadow-md hover:bg-orange-300/70 transition-all duration-300 "
-                        >
-                          Generar Despacho
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                {ventas.map((venta) => (
+                  <tr key={venta.idVenta}>
+                    <td className="pr-10 py-10 items-center">
+                      {venta.idVenta}
+                    </td>
+                    <td className="pr-10 py-10 items-center">
+                      {venta.direccionCompra}
+                    </td>
+                    <td className="pr-10 py-10 items-center">
+                      {venta.fechaCompra}
+                    </td>
+                    <td className="pr-10 py-10 items-center">
+                      ${venta.valorCompra}
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handleAbrirModal(venta)}
+                        className="py-1 bg-orange-200 px-8 rounded-xl shadow-md hover:bg-orange-300/70 transition-all duration-300"
+                      >
+                        Generar Despacho
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
