@@ -32,6 +32,32 @@ export const TableDespachos = () => {
     setOpenModal(true);
   };
 
+  const handleEliminarDespacho = async (idDespacho) => {
+    const confirmar = window.confirm("¿Seguro que deseas eliminar este despacho?");
+
+    if (!confirmar) {
+      return;
+    }
+
+    try {
+      await axios.delete(
+        `http://148.116.111.3:8081/api/v1/despachos/${idDespacho}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      alert("Despacho eliminado correctamente");
+      despacho();
+    } catch (error) {
+      console.error("Error al eliminar despacho:", error);
+      alert("No se pudo eliminar el despacho");
+    }
+  };
+
   return (
     <>
       <section className="grid text-center grid-cols-12 mb-8">
@@ -47,7 +73,7 @@ export const TableDespachos = () => {
                   <th className="pr-10">Patente Camión</th>
                   <th className="pr-10">Estado</th>
                   <th className="pr-10">Intentos de entrega</th>
-                  <th className="pr-10"></th>
+                  <th className="pr-10">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -77,12 +103,23 @@ export const TableDespachos = () => {
                       {despacho.intento}
                     </td>
                     <td>
-                      <button
-                        onClick={() => handleAbrirModal(despacho)}
-                        className="py-1 bg-orange-200 px-8 rounded-xl shadow-md hover:bg-orange-300/70 transition-all duration-300"
-                      >
-                        Cerrar despacho
-                      </button>
+                      <div className="flex flex-col gap-2">
+                        <button
+                          onClick={() => handleAbrirModal(despacho)}
+                          className="py-1 bg-orange-200 px-8 rounded-xl shadow-md hover:bg-orange-300/70 transition-all duration-300"
+                        >
+                          Cerrar despacho
+                        </button>
+
+                        <button
+                          onClick={() =>
+                            handleEliminarDespacho(despacho.idDespacho)
+                          }
+                          className="py-1 bg-red-200 px-8 rounded-xl shadow-md hover:bg-red-300/70 transition-all duration-300"
+                        >
+                          Eliminar
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
