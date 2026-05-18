@@ -7,9 +7,15 @@ export const FormCierreDespacho = ({ despacho, onClose }) => {
 
   const onSubmit = async (data) => {
     const jsonData = {
+      fechaDespacho: despacho.fechaDespacho,
+      patenteCamion: despacho.patenteCamion,
       intento: Number(data.intento),
+      idCompra: despacho.idCompra,
+      direccionCompra: despacho.direccionCompra,
+      valorCompra: despacho.valorCompra,
       despachado: data.despachado === "true",
     };
+
 
     console.log("Datos del formulario:", jsonData);
 
@@ -26,7 +32,7 @@ export const FormCierreDespacho = ({ despacho, onClose }) => {
       );
 
       Swal.fire({
-        title: "Despacho modificado 🛻!",
+        title: "Despacho modificado !",
         text: "El despacho ha sido modificado exitosamente",
         icon: "success",
         confirmButtonText: "Aceptar",
