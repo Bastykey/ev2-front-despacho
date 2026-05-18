@@ -11,11 +11,10 @@ export const FormCierreDespacho = ({ despacho, onClose }) => {
       patenteCamion: despacho.patenteCamion,
       intento: Number(data.intento),
       idCompra: despacho.idCompra,
-      direccionCompra: despacho.direccionCompra,
+      direccionCompra: data.direccionCompra,
       valorCompra: despacho.valorCompra,
       despachado: data.despachado === "true",
     };
-
 
     console.log("Datos del formulario:", jsonData);
 
@@ -32,7 +31,7 @@ export const FormCierreDespacho = ({ despacho, onClose }) => {
       );
 
       Swal.fire({
-        title: "Despacho modificado !",
+        title: "Despacho modificado",
         text: "El despacho ha sido modificado exitosamente",
         icon: "success",
         confirmButtonText: "Aceptar",
@@ -58,7 +57,7 @@ export const FormCierreDespacho = ({ despacho, onClose }) => {
         className="flex flex-col justify-center text-center px-24 text-xl"
       >
         <div className="mx-auto text-3xl font-bold mb-10 text-teal-600">
-          Editar y cierre de despacho
+          Modificar despacho
         </div>
 
         <div className="mb-5">
@@ -127,9 +126,9 @@ export const FormCierreDespacho = ({ despacho, onClose }) => {
           <label className="block font-bold mb-2">Dirección Compra</label>
           <input
             type="text"
-            className="border border-gray-300 rounded-lg block w-full text-slate-400 p-1"
-            disabled={true}
-            value={despacho.direccionCompra}
+            defaultValue={despacho.direccionCompra}
+            className="border border-gray-300 rounded-lg block w-full p-1"
+            {...register("direccionCompra", { required: true })}
           />
         </div>
 

@@ -108,7 +108,7 @@ export const TableDespachos = () => {
                           onClick={() => handleAbrirModal(despacho)}
                           className="py-1 bg-orange-200 px-8 rounded-xl shadow-md hover:bg-orange-300/70 transition-all duration-300"
                         >
-                          Cerrar despacho
+                          Modificar despacho
                         </button>
 
                         <button
@@ -117,7 +117,7 @@ export const TableDespachos = () => {
                           }
                           className="py-1 bg-red-200 px-8 rounded-xl shadow-md hover:bg-red-300/70 transition-all duration-300"
                         >
-                          Eliminar
+                          Eliminar despacho
                         </button>
                       </div>
                     </td>
